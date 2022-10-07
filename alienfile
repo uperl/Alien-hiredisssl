@@ -1,13 +1,17 @@
 use alienfile;
-plugin 'PkgConfig' => 'libfoo';
+ 
+plugin PkgConfig => pkg_name => 'hiredis_ssl';
+plugin 'Build::Make' => make_type => 'gmake';
+ 
 share {
-  plugin Download => (
-    url => 'http://...',
-    filter => qr/*\.tar\.gz$/,
-    version => qr/([0-9\.]+)/,
+  plugin 'Download::GitHub' => (
+    github_user => 'redis',
+    github_repo => 'hiredis',
+    tags_only   => 1,
   );
-  plugin Extract => 'tar.gz';
-  plugin 'Build::Autoconf';
+  build [
+    [ '%{make} PREFIX=%{.install.prefix} USE_SSL=1' ],
+    [ '%{make} PREFIX=%{.install.prefix} install USE_SSL=1' ],
+  ];
+  plugin 'Gather::IsolateDynamic';
 };
-
-
