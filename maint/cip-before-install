@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -ex
+
+cip exec cpanm -n Alien::Build::Plugin::Download::GitHub
+cip exec dzil-cpanm -n Alien::Build::Plugin::Download::GitHub
