@@ -38,6 +38,17 @@ my $builder = Module::Build->new(
 $build->create_build_script;
 ```
 
+In your [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus) script or module:
+
+```perl
+use FFI::Platypus;
+use Alien::hiredisssl;
+
+my $ffi = FFI::Platypus->new(
+  lib => [ Alien::hiredisssl->dynamic_libs ],
+);
+```
+
 # DESCRIPTION
 
 This distribution provides hiredis\_ssl so that it can be used by other
